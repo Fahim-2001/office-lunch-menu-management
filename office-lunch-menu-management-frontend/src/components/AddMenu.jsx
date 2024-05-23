@@ -1,22 +1,31 @@
-import { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
 
 const AddMenu = ({ onAddMenu }) => {
-  const [date, setDate] = useState('');
-  const [options, setOptions] = useState('');
-  
+  const [date, setDate] = useState("");
+  const [options, setOptions] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!date.trim() || !options.trim()) {
-      alert('Please fill in all fields.');
+      alert("Please fill in all fields.");
       return;
     }
     const newMenu = {
       date: date.trim(),
-      options: options.trim().split(',').map(option => option.trim())
+      options: options
+        .trim()
+        .split(",")
+        .map((option) => option.trim()),
     };
-    onAddMenu(newMenu);
-    setDate('');
-    setOptions('');
+    console.log(newMenu);
+    axios.post("http://localhost:3000/api/menus", newMenu).then((res) => {
+      if (res.status === 201){
+        alert("Item added!")
+      }
+    });
+    setDate("");
+    setOptions("");
   };
 
   return (
@@ -32,7 +41,7 @@ const AddMenu = ({ onAddMenu }) => {
             required
           />
         </div>
-        <div style={{marginTop:"10px"}}>
+        <div style={{ marginTop: "10px" }}>
           <label>Options (comma-separated):</label>
           <input
             type="text"

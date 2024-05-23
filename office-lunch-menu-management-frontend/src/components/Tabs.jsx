@@ -1,42 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddMenu from "./AddMenu";
 import MenuList from "./MenuList";
 import ViewChoices from "./ViewChoices";
 import TodayMenu from "./TodayMenu";
 import SelectLunch from "./SelectLunch";
+import axios from "axios";
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("admin");
-  const [menus, setMenus] = useState([
-    {
-      id: 1,
-      date: "2024-05-20",
-      options: ["Chicken Sandwich", "Veggie Burger", "Salad"],
-    },
-    {
-      id: 2,
-      date: "2024-05-21",
-      options: ["Pizza", "Pasta", "Caesar Salad"],
-    },
-    {
-      id: 3,
-      date: "2024-05-22",
-      options: ["Sushi", "Ramen", "Tempura"],
-    },
-    {
-      id: 4,
-      date: "2024-05-23",
-      options: ["Burger", "Fries", "Coleslaw"],
-    },
-    {
-      id: 5,
-      date: "2024-05-24",
-      options: ["Tacos", "Burrito", "Nachos"],
-    },
-  ]);
-
+  const [menus, setMenus] = useState([]);
   const [choices, setChoices] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/menus")
+      .then((res) => setMenus(res?.data));
+  }, []);
+
+  // console.log(menus);
   const handleAddMenu = (newMenu) => {
     setMenus([...menus, newMenu]);
   };
