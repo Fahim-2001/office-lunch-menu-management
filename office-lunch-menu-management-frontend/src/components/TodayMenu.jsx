@@ -3,16 +3,12 @@ const TodayMenu = ({ menus }) => {
   const todayMenu = menus.find(menu => menu.date === today);
 
   return (
-    <div>
-      <h1>Today's Menu</h1>
+    <div className="today-menu">
+      <h2>Today&apos;s Menu</h2>
       {todayMenu ? (
         <div>
-          <h2>{new Date(todayMenu.date).toDateString()}</h2>
-          <ul>
-            {todayMenu.options.map((option, index) => (
-              <li key={index}>{option}</li>
-            ))}
-          </ul>
+          <h3>{new Date(todayMenu.date).toDateString()}</h3>
+          <p>{todayMenu.options.join(', ')}</p>
         </div>
       ) : (
         <p>No menu available for today.</p>

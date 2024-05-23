@@ -1,25 +1,138 @@
-.App {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+/* App.css */
+
+/* Body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-h1 {
-  color: #333;
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-h2 {
+/* Heading */
+h1, h2, h3 {
+  color: #343a40;
+  text-align: center;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+}
+
+.tabs button.active {
+  background-color: #0056b3;
+}
+
+/* Tab Content */
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form */
+form {
+  max-width: 400px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+form label {
+  display: block;
+  font-weight: bold;
+}
+
+form input[type="text"],
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Menu List */
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.menu-item p {
+  margin: 0;
   color: #555;
 }
 
-form {
+/* View Choices */
+.view-choices {
+  max-width: 600px;
+  width: 100%;
   margin-top: 20px;
 }
 
-form div {
+.choice-item {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
   margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-button {
-  margin-top: 10px;
-  padding: 5px 10px;
+.choice-item h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.choice-item p {
+  margin: 0;
+  color: #555;
 }

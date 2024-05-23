@@ -1,57 +1,48 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const AddMenu = ({ onAddMenu }) => {
   const [date, setDate] = useState('');
-  const [options, setOptions] = useState(['']);
-
-  const handleOptionChange = (index, value) => {
-    const newOptions = [...options];
-    newOptions[index] = value;
-    setOptions(newOptions);
-  };
-
-  const handleAddOption = () => {
-    setOptions([...options, '']);
-  };
-
+  const [options, setOptions] = useState('');
+  
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!date.trim() || !options.trim()) {
+      alert('Please fill in all fields.');
+      return;
+    }
     const newMenu = {
-      id: Date.now(), // Generate a unique ID for the menu
-      date,
-      options
+      date: date.trim(),
+      options: options.trim().split(',').map(option => option.trim())
     };
     onAddMenu(newMenu);
     setDate('');
-    setOptions(['']);
+    setOptions('');
   };
 
   return (
-    <div>
-      <h1>Add New Menu</h1>
+    <div className="add-menu">
+      <h2>Add Daily Menu Options</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Date: </label>
-          <input 
-            type="date" 
-            value={date} 
-            onChange={(e) => setDate(e.target.value)} 
-            required 
+          <label>Date:</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
           />
         </div>
-        {options.map((option, index) => (
-          <div key={index}>
-            <label>Option {index + 1}: </label>
-            <input 
-              type="text" 
-              value={option} 
-              onChange={(e) => handleOptionChange(index, e.target.value)} 
-              required 
-            />
-          </div>
-        ))}
-        <button type="button" onClick={handleAddOption}>Add Another Option</button>
-        <button type="submit">Submit</button>
+        <div style={{marginTop:"10px"}}>
+          <label>Options (comma-separated):</label>
+          <input
+            type="text"
+            value={options}
+            onChange={(e) => setOptions(e.target.value)}
+            placeholder="e.g., Sandwich, Salad, Soup"
+            required
+          />
+        </div>
+        <button type="submit">Add Menu</button>
       </form>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const SelectLunch = ({ menu, onChoiceSubmit }) => {
   const [choices, setChoices] = useState([]);
@@ -25,7 +25,7 @@ const SelectLunch = ({ menu, onChoiceSubmit }) => {
     const choiceData = {
       employeeName: employeeName.trim(),
       date: menu.date,
-      choices: choices.slice() // Copy choices array to prevent mutations
+      choices: choices.slice()
     };
     onChoiceSubmit(choiceData);
     alert(`Thank you, ${employeeName.trim()}! You have selected ${choices.join(', ')} for lunch.`);
@@ -34,12 +34,12 @@ const SelectLunch = ({ menu, onChoiceSubmit }) => {
   };
 
   return (
-    <div>
-      <h1>Select Your Lunch</h1>
+    <div className="select-lunch">
+      <h2>Select Your Lunch</h2>
       {menu ? (
         <form onSubmit={handleSubmit}>
           <div>
-            <h2>{new Date(menu.date).toDateString()}</h2>
+            <h3>{new Date(menu.date).toDateString()}</h3>
             <div>
               <label>Employee Name:</label>
               <input
@@ -50,8 +50,8 @@ const SelectLunch = ({ menu, onChoiceSubmit }) => {
               />
             </div>
             <ul>
-              {menu.options.map((option, index) => (
-                <li key={option}>
+              {menu.options.map((option) => (
+                <li key={option} style={{display:'flex'}}>
                   <input
                     type="checkbox"
                     value={option}
