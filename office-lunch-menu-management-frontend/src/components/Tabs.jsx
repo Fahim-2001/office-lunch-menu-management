@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddMenu from './AddMenu';
 import MenuList from './MenuList';
 import SelectLunch from './SelectLunch';
+import ViewChoices from './ViewChoices';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('admin');
@@ -54,7 +55,7 @@ const Tabs = () => {
           <div>
             <AddMenu onAddMenu={handleAddMenu} />
             <MenuList menus={menus} />
-        
+            <ViewChoices choices={choices} />
           </div>
         )}
         {activeTab === 'employee' && <SelectLunch menus={menus} onChoiceSubmit={handleChoiceSubmit} />}
