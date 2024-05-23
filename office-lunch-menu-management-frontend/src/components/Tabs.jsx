@@ -45,7 +45,7 @@ const Tabs = () => {
       <div className="tab-content">
         {activeTab === "admin" && (
           <div className="container">
-            <AddMenu onAddMenu={handleAddMenu} />
+            <AddMenu/>
             <div>
               <MenuList menus={menus} />
               <ViewChoices choices={choices} />
