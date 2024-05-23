@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import axios from "axios";
+import { useState } from "react";
 
-const SelectLunch = ({ menu, onChoiceSubmit }) => {
+const SelectLunch = ({ menu }) => {
   const [choices, setChoices] = useState([]);
-  const [employeeName, setEmployeeName] = useState('');
+  const [employeeName, setEmployeeName] = useState("");
 
   const handleCheckboxChange = (option) => {
     if (choices.includes(option)) {
-      setChoices(choices.filter(item => item !== option));
+      setChoices(choices.filter((item) => item !== option));
     } else {
       setChoices([...choices, option]);
     }
@@ -14,22 +15,29 @@ const SelectLunch = ({ menu, onChoiceSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (employeeName.trim() === '') {
-      alert('Please enter your name.');
+    if (employeeName.trim() === "") {
+      alert("Please enter your name.");
       return;
     }
     if (choices.length === 0) {
-      alert('Please select at least one lunch option.');
+      alert("Please select at least one lunch option.");
       return;
     }
     const choiceData = {
       employeeName: employeeName.trim(),
       date: menu.date,
-      choices: choices.slice()
+      choices: choices.slice(),
     };
-    onChoiceSubmit(choiceData);
-    alert(`Thank you, ${employeeName.trim()}! You have selected ${choices.join(', ')} for lunch.`);
-    setEmployeeName('');
+    axios.post("http://localhost:3000/api/choices", choiceData).then((res) => {
+      if (res.status === 201) {
+        alert(
+          `Thank you, ${employeeName.trim()}! You have selected ${choices.join(
+            ", "
+          )} for lunch.`
+        );
+      }
+    });
+    setEmployeeName("");
     setChoices([]);
   };
 
@@ -51,7 +59,7 @@ const SelectLunch = ({ menu, onChoiceSubmit }) => {
             </div>
             <ul>
               {menu.options.map((option) => (
-                <li key={option} style={{display:'flex'}}>
+                <li key={option} style={{ display: "flex" }}>
                   <input
                     type="checkbox"
                     value={option}

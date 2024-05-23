@@ -18,7 +18,6 @@ const AddMenu = () => {
         .split(",")
         .map((option) => option.trim()),
     };
-    console.log(newMenu);
     axios.post("http://localhost:3000/api/menus", newMenu).then((res) => {
       if (res.status === 201){
         alert("Item added!")
