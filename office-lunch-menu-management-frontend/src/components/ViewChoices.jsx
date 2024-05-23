@@ -8,8 +8,8 @@ const ViewChoices = ({ choices }) => {
         choices.map((choice, index) => (
           <div key={index} className="choice-item">
             <h3>{new Date(choice.date).toDateString()}</h3>
-            <p>
-              {choice.employeeName} chose {choice.choices.join(', ')}
+            <p style={{marginTop:"5px"}}>
+              {choice.employee_name} chose {choice.choices.join(', ')}
             </p>
           </div>
         ))

@@ -15,16 +15,11 @@ const Tabs = () => {
     axios
       .get("http://localhost:3000/api/menus")
       .then((res) => setMenus(res?.data));
+
+    axios
+      .get("http://localhost:3000/api/choices")
+      .then((res) => setChoices(res?.data));
   }, []);
-
-  // console.log(menus);
-  const handleAddMenu = (newMenu) => {
-    setMenus([...menus, newMenu]);
-  };
-
-  const handleChoiceSubmit = (choiceData) => {
-    setChoices([...choices, choiceData]);
-  };
 
   return (
     <div>
@@ -45,11 +40,9 @@ const Tabs = () => {
       <div className="tab-content">
         {activeTab === "admin" && (
           <div className="container">
-            <AddMenu/>
-            <div>
-              <MenuList menus={menus} />
-              <ViewChoices choices={choices} />
-            </div>
+            <AddMenu />
+            <MenuList menus={menus} />
+            <ViewChoices choices={choices} />
           </div>
         )}
         {activeTab === "employee" && (
@@ -59,7 +52,6 @@ const Tabs = () => {
               menu={menus.find(
                 (menu) => menu.date === new Date().toISOString().split("T")[0]
               )}
-              onChoiceSubmit={handleChoiceSubmit}
             />
           </div>
         )}

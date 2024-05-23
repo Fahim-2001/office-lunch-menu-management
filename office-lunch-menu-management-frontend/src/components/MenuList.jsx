@@ -6,14 +6,14 @@ const MenuList = ({ menus }) => {
       {menus.length === 0 ? (
         <p>No menus available.</p>
       ) : (
-        <ul>
+        <div>
           {menus.map(menu => (
-            <li key={menu.date} className="menu-item">
+            <div key={menu.date} className="menu-item">
               <h3>{new Date(menu.date).toDateString()}</h3>
-              <p>{menu.options.join(', ')}</p>
-            </li>
+              <p style={{marginTop:"5px"}}>{menu.options.join(', ')}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

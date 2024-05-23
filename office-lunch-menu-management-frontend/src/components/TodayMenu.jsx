@@ -1,6 +1,5 @@
 const TodayMenu = ({ menus }) => {
   const today = new Date().toISOString().split('T')[0];
-  console.log(today)
   const todayMenu = menus.find(menu => menu.date === today);
 
   return (
