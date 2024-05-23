@@ -1,64 +1,73 @@
 import React, { useState } from 'react';
 
-const SelectLunch = ({ menus, onChoiceSubmit }) => {
-  const [selectedMenu, setSelectedMenu] = useState(null);
-  const [choice, setChoice] = useState('');
+const SelectLunch = ({ menu, onChoiceSubmit }) => {
+  const [choices, setChoices] = useState([]);
   const [employeeName, setEmployeeName] = useState('');
+
+  const handleCheckboxChange = (option) => {
+    if (choices.includes(option)) {
+      setChoices(choices.filter(item => item !== option));
+    } else {
+      setChoices([...choices, option]);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (employeeName.trim() === '') {
+      alert('Please enter your name.');
+      return;
+    }
+    if (choices.length === 0) {
+      alert('Please select at least one lunch option.');
+      return;
+    }
     const choiceData = {
-      employeeName,
-      date: selectedMenu.date,
-      choice,
+      employeeName: employeeName.trim(),
+      date: menu.date,
+      choices: choices.slice() // Copy choices array to prevent mutations
     };
     onChoiceSubmit(choiceData);
-    alert(`You have selected ${choice} from the menu on ${new Date(selectedMenu.date).toDateString()}`);
+    alert(`Thank you, ${employeeName.trim()}! You have selected ${choices.join(', ')} for lunch.`);
+    setEmployeeName('');
+    setChoices([]);
   };
 
   return (
     <div>
       <h1>Select Your Lunch</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Employee Name:</label>
-          <input
-            type="text"
-            value={employeeName}
-            onChange={(e) => setEmployeeName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Select a menu:</label>
-          <select onChange={(e) => setSelectedMenu(menus.find(menu => menu.id === parseInt(e.target.value)))}>
-            <option>Select a menu</option>
-            {menus.map(menu => (
-              <option key={menu.id} value={menu.id}>
-                {new Date(menu.date).toDateString()}
-              </option>
-            ))}
-          </select>
-        </div>
-        {selectedMenu && (
+      {menu ? (
+        <form onSubmit={handleSubmit}>
           <div>
-            <h2>Options</h2>
-            {selectedMenu.options.map(option => (
-              <div key={option}>
-                <input
-                  type="radio"
-                  value={option}
-                  name="lunch"
-                  onChange={(e) => setChoice(e.target.value)}
-                  required
-                />
-                <label>{option}</label>
-              </div>
-            ))}
+            <h2>{new Date(menu.date).toDateString()}</h2>
+            <div>
+              <label>Employee Name:</label>
+              <input
+                type="text"
+                value={employeeName}
+                onChange={(e) => setEmployeeName(e.target.value)}
+                required
+              />
+            </div>
+            <ul>
+              {menu.options.map((option, index) => (
+                <li key={option}>
+                  <input
+                    type="checkbox"
+                    value={option}
+                    checked={choices.includes(option)}
+                    onChange={() => handleCheckboxChange(option)}
+                  />
+                  <label>{option}</label>
+                </li>
+              ))}
+            </ul>
           </div>
-        )}
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit">Submit</button>
+        </form>
+      ) : (
+        <p>No menu available for today.</p>
+      )}
     </div>
   );
 };

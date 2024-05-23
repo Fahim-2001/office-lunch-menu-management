@@ -10,7 +10,9 @@ const ViewChoices = ({ choices }) => {
         choices.map((choice, index) => (
           <div key={index}>
             <h2>{new Date(choice.date).toDateString()}</h2>
-            <p>{choice.employeeName} chose {choice.choice}</p>
+            <p>
+              {choice.employeeName} chose {choice.choices.join(', ')}
+            </p>
           </div>
         ))
       )}
