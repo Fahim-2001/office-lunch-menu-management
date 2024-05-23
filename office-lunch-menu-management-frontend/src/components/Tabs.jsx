@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import AddMenu from './AddMenu';
 import MenuList from './MenuList';
-import SelectLunch from './SelectLunch';
 import ViewChoices from './ViewChoices';
+import TodayMenu from './TodayMenu';
+import SelectLunch from './SelectLunch';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('admin');
@@ -58,7 +59,12 @@ const Tabs = () => {
             <ViewChoices choices={choices} />
           </div>
         )}
-        {activeTab === 'employee' && <SelectLunch menus={menus} onChoiceSubmit={handleChoiceSubmit} />}
+        {activeTab === 'employee' && (
+          <div>
+            <TodayMenu menus={menus} />
+            <SelectLunch menu={menus.find(menu => menu.date === new Date().toISOString().split('T')[0])} onChoiceSubmit={handleChoiceSubmit} />
+          </div>
+        )}
       </div>
     </div>
   );
