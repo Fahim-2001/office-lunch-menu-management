@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const AddMenu = ({ onAddMenu }) => {
+const AddMenu = () => {
   const [date, setDate] = useState("");
   const [options, setOptions] = useState("");
 
